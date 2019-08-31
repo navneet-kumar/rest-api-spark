@@ -1,11 +1,11 @@
 package models;
 
-import java.util.Date;
+import java.sql.Time;
 
 public class Product {
   private String id;
   private String name;
-  private Date created;
+  private Time created;
 
   public String getId() {
     return id;
@@ -23,11 +23,11 @@ public class Product {
     this.name = name;
   }
 
-  public Date getCreated() {
+  public Time getCreated() {
     return created;
   }
 
-  public void setCreated(Date created) {
+  public void setCreated(Time created) {
     this.created = created;
   }
 }
