@@ -2,13 +2,20 @@ package services.implementations.postgres;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import models.Product;
 import models.Purchaser;
+import org.postgresql.jdbc.TimestampUtils;
 import services.PurchaserService;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -108,6 +115,27 @@ public class PurchaserServiceImpl implements PurchaserService {
 
     @Override
     public JsonElement getPurchaseHistory(Purchaser purchaser, Map<String, String[]> filters) {
-        return null;
+        JsonObject object = new JsonObject();
+        try {
+            PreparedStatement preparedStatement =
+                    psql.getConnection()
+                            .prepareStatement(
+                                    "select product_name, txn_created from transactions inner join products on products.product_id = transactions.product_id where txn_created between ? and ? ");
+//TODO get timestamp from date
+            LocalDate date = LocalDate.parse(filters.get("start_date")[0],DateTimeFormatter.ofPattern("yyyy-m-d"));
+            Instant instant = Instant.parse(date.toString());
+            System.out.printf(Timestamp.from(instant).toString());
+            preparedStatement.setTimestamp(1, Timestamp.valueOf(filters.get("start_date")[0]));
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(filters.get("end_date")[0]));
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                JsonObject obj = new JsonObject();
+                obj.add("product", new JsonParser().parse(resultSet.getString("product_name")));
+                object.add(resultSet.getString("txn_created"), obj);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getErrorCode() + " " + ex.getLocalizedMessage());
+        }
+        return object;
     }
 }
