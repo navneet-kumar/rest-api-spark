@@ -1,33 +1,38 @@
 package models;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Purchaser {
-  private String id;
-  private String name;
-  private Date created;
+    private String id;
+    private String name;
+    private Timestamp created;
 
-  public String getId() {
-    return id;
-  }
+    public Purchaser() {
+        this.created = new Timestamp(System.currentTimeMillis());
+    }
 
-  public void setId(String id) {
-    this.id = id;
-  }
 
-  public String getName() {
-    return name;
-  }
+    public String getId() {
+        return id;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-  public Date getCreated() {
-    return created;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setCreated(Date created) {
-    this.created = created;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Timestamp getCreated() {
+        return created;
+    }
+
+    public void setCreated(Timestamp created) {
+        this.created = created;
+    }
 }

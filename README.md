@@ -1,20 +1,37 @@
-4 endpoints implemented: 
+**REST API** <br>
  
-POST /purchaser 
-- sample body: "{ "name": "Bob" }"   
-POST /product 
-- sample body: "{ "name": "Tomato" }" 
- 
-POST /purchaser-product (should create relationship between purchaser and product) 
-- sample body: "{ "purchaser_id": 1,  "product_id": 5, 
-"purchase_timestamp": 1566265701 }" 
- 
-GET /purchaser/{$purchaser_id}/product  ?start_date={$start_date}&end_date={$end_date}  (specifications for this on the next slide)
+ 1.1 Add a user <br>
+```
+POST http://127.0.0.1:4567/purchaser
+{ "name": "Bob" }
+```
+
+ 1.2 Get all users <br>
+```
+GET http://127.0.0.1:4567/purchaser
+```
+
+2.1 Add a product <br>
+```
+POST http://127.0.0.1:4567/product
+{ "name": "Tomato" }
+```
+2.2 Get all products <br>
+```
+GET http://127.0.0.1:4567/product
+{ "name": "Tomato" }
+```
+
+2.3 Purchase a product (creates relationship between purchaser and product) 
+```
+POST http://127.0.0.1:4567/purchaser-product 
+{ "purchaser_id": 1,  "product_id": 5,  "purchase_timestamp": 1566265701 }
+```
+
+2.4  Purchase history
+```
+GET http://127.0.0.1:4567/purchaser/{$purchaser_id}/product  ?start_date={$start_date}&end_date={$end_date} 
  
-Specifications for the GET /purchaser/{$purchaser_id}/product?start_date={$start_date}&end_date={$end_date} endpoint  
- 
-Sample response: 
-```JSON
 {
   "purchases": {
     "2019-05-10": [

@@ -1,33 +1,38 @@
 package models;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 
 public class Product {
-  private String id;
-  private String name;
-  private Time created;
+    private String id;
+    private String name;
+    private Timestamp created;
 
-  public String getId() {
-    return id;
-  }
+    public Product() {
+        this.created = new Timestamp(System.currentTimeMillis());
+    }
 
-  public void setId(String id) {
-    this.id = id;
-  }
+    public String getId() {
+        return id;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public Time getCreated() {
-    return created;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public void setCreated(Time created) {
-    this.created = created;
-  }
+    public Timestamp getCreated() {
+        return created;
+    }
+
+    public void setCreated(Timestamp created) {
+        this.created = created;
+    }
 }

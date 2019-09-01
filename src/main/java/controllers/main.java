@@ -26,7 +26,7 @@ public class main {
 
     final ProductService productService = new ProductServiceImpl();
     final PurchaserService purchaserService = new PurchaserServiceImpl();
-    final Gson JSON = new GsonBuilder().setDateFormat("YYYY-MM-DD").create();
+    final Gson JSON = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
 
     get(
         "/welcome/:name",
@@ -106,6 +106,7 @@ public class main {
     exception(
         Exception.class,
         (e, req, res) -> {
+          e.printStackTrace();
           res.type("application/json");
           res.status(500);
           res.body(JSON.toJson(new Response(Status.ERROR, e.getLocalizedMessage())));
