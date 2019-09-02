@@ -25,13 +25,12 @@ GET http://127.0.0.1:4567/product
 2.3 Purchase a product (creates relationship between purchaser and product) 
 ```
 POST http://127.0.0.1:4567/purchaser-product 
-{ "purchaser_id": 1,  "product_id": 5,  "purchase_timestamp": 1566265701 }
+{ "purchaser_id": 1,"product_id": 5,"purchase_timestamp": 1566265701 }
 ```
 
 2.4  Purchase history
 ```
-GET http://127.0.0.1:4567/purchaser/{$purchaser_id}/product  ?start_date={$start_date}&end_date={$end_date} 
- 
+GET http://127.0.0.1:4567/purchaser/{$purchaser_id}/product?start_date={$start_date}&end_date={$end_date} 
 {
   "purchases": {
     "2019-05-10": [
